@@ -1,6 +1,7 @@
 package com.gethonk.honk;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
@@ -24,9 +25,10 @@ public class MainActivity extends ActionBarActivity {
     private static final String LOG_TAG = MainActivity.class.getName();
 
     private Button mButton;
+    private Button mButton1;
     private static final String AUDIO_RECORDER_FILE_EXT_3GP = ".3gp";
     private static final String AUDIO_RECORDER_FILE_EXT_MP4 = ".mp4";
-    private static final String AUDIO_RECORDER_FOLDER = "Honk";
+    public static final String AUDIO_RECORDER_FOLDER = "Honk";
     private MediaRecorder recorder = null;
     private int currentFormat = 0;
     private int outputFormats[] = {MediaRecorder.OutputFormat.MPEG_4, MediaRecorder.OutputFormat.THREE_GPP};
@@ -37,7 +39,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mButton = (Button) findViewById(R.id.button1);
+        mButton = (Button) findViewById(R.id.record);
         if (!hasMicrophone()) {
             mButton.setEnabled(false);
             Toast.makeText(this, "Microphone not available on device", Toast.LENGTH_SHORT).show();
@@ -62,6 +64,15 @@ public class MainActivity extends ActionBarActivity {
                 return false;
             }
         });
+        mButton1 = (Button) findViewById(R.id.show);
+        mButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ShowAudioFiles.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
